@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-__author__ = "Daryl Tucker"
+__author__ = "Daryl Tucker / stemmle"
 
 import sublime, sublime_plugin
 
@@ -13,8 +13,6 @@ class RemoveMagicFromMagic(sublime_plugin.EventListener):
             [u'[…]{1}',u'...'],
             [u'[—]{1}',u'---'],
             [u'[–]{1}',u'--'],
-            [u'[•]{1}',u'*'],
-            [u' & ',u' &amp; '],
         ]
         edit = view.begin_edit()
         for replacement in replacements:
