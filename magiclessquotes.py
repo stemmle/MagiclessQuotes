@@ -5,8 +5,9 @@ __author__ = "Daryl Tucker / stemmle"
 
 import sublime, sublime_plugin
 
-class RemoveMagicFromMagic(sublime_plugin.EventListener):
-    def on_pre_save(self, view):
+class RemoveSmartQuotesCommand(sublime_plugin.TextCommand):
+    def run(self, edit, user_input=None):
+        self.edit = edit
         replacements = [
             [u'[’‘`]{1}',u'\''],
             [u'[“”]{1}',u'"'],
@@ -14,9 +15,11 @@ class RemoveMagicFromMagic(sublime_plugin.EventListener):
             [u'[—]{1}',u'---'],
             [u'[–]{1}',u'--'],
         ]
-        edit = view.begin_edit()
         for replacement in replacements:
-            x = view.find_all(replacement[0])
+            x = self.view.find_all(replacement[0])
             for position in x:
-                view.replace(edit, position, replacement[1])
-        view.end_edit(edit)
+                self.view.replace(edit, position, replacement[1])
+
+class RemoveSmartQuotesWhenSaving(sublime_plugin.EventListener):
+    def on_pre_save(self, view):
+        view.run_command('remove_smart_quotes')
