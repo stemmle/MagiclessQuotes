@@ -9,7 +9,7 @@ class RemoveSmartQuotesCommand(sublime_plugin.TextCommand):
     def run(self, edit, user_input=None):
         self.edit = edit
         replacements = [
-            [u'[’‘`]{1}',u'\''],
+            [u'[’‘]{1}',u'\''],
             [u'[“”]{1}',u'"'],
             [u'[…]{1}',u'...'],
             [u'[—]{1}',u'---'],
